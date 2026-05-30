@@ -9,7 +9,7 @@ class softmax():
         exp=np.exp(self.input-y)
         return exp/np.sum(exp,axis=1,keepdims=True)
     def backward(self, gradient):
-        return gradient
+        return gradient #mostly used alongside cross entropy loss casuing gradient simplification to output-true_pred
     
 
 class RELU():
