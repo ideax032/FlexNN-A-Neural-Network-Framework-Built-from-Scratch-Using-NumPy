@@ -35,7 +35,7 @@ class Adam():
         layer.b-=self.lr*bias_momentum_unbaised/(np.sqrt(bias_variance_unbaised)+self.epsilon)
 
 
-class SGD():
+class Gradient_Decent():
     def __init__(self,lr=0.01):
         self.lr=lr
     def pre_update(self):
