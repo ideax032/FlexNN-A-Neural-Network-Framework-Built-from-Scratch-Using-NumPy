@@ -2,7 +2,7 @@ import numpy as np
 class Dense():
     def __init__(self, input_size,output_size):
         self.w=np.random.randn(input_size,output_size)*(np.sqrt(2/input_size))
-        self.b=np.zeros((1,output_size), dtype=np.float32)*(np.sqrt(2/input_size))
+        self.b=np.zeros((1,output_size), dtype=np.float32)
 
     def forward(self,x):
         self.input=x

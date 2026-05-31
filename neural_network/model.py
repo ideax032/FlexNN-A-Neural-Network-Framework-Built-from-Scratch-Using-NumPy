@@ -36,20 +36,31 @@ class Sequential():
             if hasattr(i,'w'):
                 i.optimizer=optimizer
         
-    def fit(self,x,y,epochs,lr):
+    def fit(self,x,y,epochs,lr,batch_size=32):
         losses=[]
-        for epoch in range(epochs):
-            self.optimizer.pre_update()
-            output=self.forward(x)
-            Loss=self.loss.forward(output,y)
-            losses.append(Loss)
-            gradient=self.loss.backward(output,y)
-            self.backward(gradient)
-            plt.plot(losses)
 
-            if epoch%100==0:
+        for epoch in range(epochs):
+            index=np.arange(x.shape[0])  
+            epoch_loss=0
+            for i in range(0,x.shape[0],batch_size):
+                
+                self.optimizer.pre_update()
+                batch_index=index[i:i+batch_size]
+                x_batch=x[batch_index]
+                y_batch=y[batch_index]
+
+                output=self.forward(x_batch)
+                Loss=self.loss.forward(output,y_batch)
+                gradient=self.loss.backward(output,y_batch)
+                self.backward(gradient)
+                epoch_loss += Loss
+            
+            losses.append(epoch_loss/(x.shape[0]//batch_size))
+
+            if epoch%10==0:
                 progress_bar(epoch, epochs)
-                print(f' Epoch {epoch}, Loss: {Loss}')
+                print(f' Epoch {epoch}, Loss: {epoch_loss/(x.shape[0]//batch_size)}')
+        
         plt.plot(losses)
         plt.xlabel("Epoch")
         plt.ylabel("Loss")
