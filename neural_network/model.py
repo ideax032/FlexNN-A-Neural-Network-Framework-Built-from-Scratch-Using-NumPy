@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import pickle
 
 import sys
 import time
@@ -35,7 +36,6 @@ class Sequential():
         for i in self.layers:
             if hasattr(i,'w'):
                 i.optimizer=optimizer
-        
     def fit(self,x,y,epochs,lr,batch_size=32):
         losses=[]
 
@@ -71,3 +71,25 @@ class Sequential():
     def predict(self,x):
         output=self.forward(x)
         return output
+    def save(self,filename="model.pkl"):
+        with open(filename,'wb') as f:
+            pickle.dump(self,f)
+        print(f'Model saved to {filename} ')
+    def summary(self):
+        print( "Model Summary")
+        print( "==========================================")
+        for i  in self.layers:
+            if hasattr(i,'w'):
+                print(f"Layer: {i.__class__.__name__}, Learnable Parameters : True, Optimizer : {i.optimizer.__class__.__name__}" )
+                print( "==========================================")
+                
+            else:
+                print(f"Layer: {i.__class__.__name__}, Learnable Parameters : False, Optimizer : None" )
+                print( "==========================================")
+        
+    @classmethod
+    def Load(cls,filename="model.pkl"):
+        with open(filename,'rb') as f:
+            model=pickle.load(f)
+        print(f'Model loaded from {filename} ')
+        return model

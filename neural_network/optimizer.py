@@ -6,6 +6,10 @@ class Adam():
         self.beta2=beta2
         self.epsilon=epsilon
         self.t=0
+    
+    def __name__(self):
+        return "Adam"
+    
     def pre_update(self):
         self.t+=1
     def update(self,layer):
@@ -38,6 +42,10 @@ class Adam():
 class Gradient_Decent():
     def __init__(self,lr=0.01):
         self.lr=lr
+
+    def __name__(self):
+        return "Gradient_Decent"
+
     def pre_update(self):
         pass
     def update(self,layer):

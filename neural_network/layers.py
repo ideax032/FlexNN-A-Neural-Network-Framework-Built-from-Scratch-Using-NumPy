@@ -3,7 +3,10 @@ class Dense():
     def __init__(self, input_size,output_size):
         self.w=np.random.randn(input_size,output_size)*(np.sqrt(2/input_size))
         self.b=np.zeros((1,output_size), dtype=np.float32)
-
+    
+    def __name__(self):
+        return "Dense"
+    
     def forward(self,x):
         self.input=x
         return np.dot(x,self.w)+self.b
