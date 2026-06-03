@@ -1,47 +1,50 @@
-ScratchNN:
-ScratchNN is a Neural Network Framework developed with the help of the numpy.
-The project focuses on understanding the internal mechanics of deep learning by 
-implementing core components without relying on high-level machine learning libraries.
+# ScratchNN
 
-Features:
-Keras style - Sequential model
-Fully Connected (Dense) Layers
-RELU activation
-Leaky_RELU activation
-Softmax activation
-Forward propagation
-Backward propagation
-Numpy-based implimentation
+ScratchNN is a neural network framework built entirely with NumPy.
 
-Project Goal
+The project focuses on understanding the internal mechanics of deep learning by implementing core components from scratch instead of relying on high-level machine learning libraries.
 
-The goal of ScratchNN is to gain a deeper understanding of:
+## Features
 
-Neural network architecture
-Gradient-based optimization
-Backpropagation
-Loss functions
-Weight initialization
-Modular framework design
-Deep learning fundamentals
+* Keras-style Sequential model
+* Fully Connected (Dense) layers
+* ReLU activation
+* Leaky ReLU activation
+* Softmax activation
+* Forward propagation
+* Backward propagation
+* NumPy-based implementation
 
-Rather than treating neural networks as black boxes, ScratchNN implements the underlying algorithms directly in NumPy
+## Project Goal
 
+The goal of ScratchNN is to develop a deeper understanding of:
 
-Planned Features:
+* Neural network architecture
+* Gradient-based optimization
+* Backpropagation
+* Loss functions
+* Weight initialization
+* Modular framework design
+* Deep learning fundamentals
 
-Mini-batch training
-Dropout
-Batch Normalization
-Learning Rate Scheduling
-Model Saving and Loading
-CNN Layers
-Additional Activation Functions
-Additional Loss Functions
-Evaluation Metrics
-GPU Support Exploration
+Rather than treating neural networks as black boxes, ScratchNN implements the underlying algorithms directly in NumPy.
 
-Technologies Used:
-Python
-NumPy
-Matplotlib
+## Planned Features
+
+* Mini-batch training
+* Dropout
+* Batch Normalization
+* Learning Rate Scheduling
+* Model Saving and Loading
+* CNN layers
+* Additional activation functions
+* Additional loss functions
+* Evaluation metrics
+* GPU support exploration
+
+## Technologies Used
+
+* Python
+* NumPy
+* Matplotlib
+
