@@ -1,4 +1,5 @@
 import numpy as np
+from .mode import model_mode 
 class softmax():
     def __init__(self):
         pass
@@ -7,9 +8,10 @@ class softmax():
         return "Softmax"
     
     def forward(self,input):
-        self.input =input
-        y=np.max(self.input, axis=1,keepdims=True)
-        exp=np.exp(self.input-y)
+        if model_mode.mode:
+            self.input =input
+        y=np.max(input, axis=1,keepdims=True)
+        exp=np.exp(input-y)
         return exp/np.sum(exp,axis=1,keepdims=True)
     
     def backward(self, gradient):
@@ -24,11 +26,14 @@ class RELU():
         return "RELU"
 
     def forward(self,input):
-        self.input =input
-        return np.maximum(0, self.input)
+        if model_mode.mode:
+            self.input =input
+        return np.maximum(0, input)
     
     def backward(self, gradient):
-        return gradient*(self.input>0)
+        output=gradient*(self.input>0)
+        self.input=None
+        return output
 
 class Leaky_RELU():
     def __init__(self,lr=0.01):
@@ -38,11 +43,15 @@ class Leaky_RELU():
         return "Leaky_RELU"
     
     def forward(self,input):
-        return np.where(self.input>0,self.input, self.lr*self.input)
+        if model_mode.mode:
+            self.input =input
+        return np.where(input>0,input, self.lr*input)
     
     def backward(self, gradient):
-        return np.where(self.input>0,gradient,self.lr*gradient)
-    
+        output=np.where(self.input>0,gradient,self.lr*gradient)
+        self.input=None
+        return output
+
 class Sigmoid():
     def __init__(self):
         pass 
@@ -52,11 +61,16 @@ class Sigmoid():
 
     def forward(self,x):
         x=np.clip(x, -500, 500)
-        self.output=1/(np.exp(-x)+1)
-        return self.output
+        output=1/(np.exp(-x)+1)
+        if model_mode.mode:
+            self.output=output
+        return output
     
     def backward(self,gradient):
-        return gradient*self.output*(1-self.output)  #could lead to vanishing graident problem for deep neural network 
+        output=self.output
+        self.output=None
+
+        return output  #could lead to vanishing graident problem for deep neural network 
 
 
 class Tanh():
@@ -70,10 +84,14 @@ class Tanh():
         x=np.clip(x,-500,500)
         exp_x=np.exp(x)
         exp_neg_x=np.exp(-x)
-        self.output=(exp_x-exp_neg_x)/(exp_x+exp_neg_x) #similar to sigmoid function but ranges from -1 to 1 
-        return self.output
+        output=(exp_x-exp_neg_x)/(exp_x+exp_neg_x) #similar to sigmoid function but ranges from -1 to 1
+        if model_mode.mode:
+            self.output=output 
+        return output
 
     def backward(self,gradient):
-        return gradient*(1-self.output**2)
+        output=gradient*(1-self.output**2) #derivative of tanh is 1-output^2
+        self.output=None
+        return output 
         
     

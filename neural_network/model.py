@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pickle
 
+from .mode import model_mode
+from .optimizer import *
+
 import sys
 import time
 
@@ -30,15 +33,17 @@ class Sequential():
         for i in reversed(self.layers):
             gradient=i.backward(gradient)
         return gradient
-    def complie(self,loss,optimizer):
+    def complie(self,loss,optimizer,lr_mode='constant'):
         self.loss=loss
         self.optimizer=optimizer
+        self.learning_rate_scheduler=getattr(Learning_Rate_Scheduler(optimizer),lr_mode)
         for i in self.layers:
             if hasattr(i,'w'):
                 i.optimizer=optimizer
-    def fit(self,x,y,epochs,lr,batch_size=32):
-        losses=[]
 
+    def fit(self,x,y,epochs,lr,batch_size=32, training=True):
+        losses=[]
+        model_mode.mode=training
         for epoch in range(epochs):
             index=np.arange(x.shape[0])  
             epoch_loss=0
@@ -52,7 +57,9 @@ class Sequential():
                 output=self.forward(x_batch)
                 Loss=self.loss.forward(output,y_batch)
                 gradient=self.loss.backward(output,y_batch)
+                self.learning_rate_scheduler(epoch)
                 self.backward(gradient)
+
                 epoch_loss += Loss
             
             losses.append(epoch_loss/(x.shape[0]//batch_size))
@@ -68,7 +75,8 @@ class Sequential():
         plt.grid()
 
         plt.show()
-    def predict(self,x):
+    def predict(self,x,training=False):
+        model_mode.mode=training
         output=self.forward(x)
         return output
     def save(self,filename="model.pkl"):

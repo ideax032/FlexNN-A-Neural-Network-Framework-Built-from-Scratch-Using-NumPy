@@ -1,5 +1,5 @@
 import numpy as np 
-
+from .mode import model_mode 
 class batch_normalization():
     def __init__(self):
         self.w=None
@@ -20,9 +20,16 @@ class Dropout():
         return "Dropout"
     
     def forward(self,x):
-        self.mask=np.random.rand(*x.shape)>self.prob
-        return x*self.mask
+        if model_mode.mode:
+            self.mask=np.random.rand(*x.shape)>self.prob
+            return x*self.mask
+        else:
+            return x
     def backward(self,gradient):
-        return gradient*self.mask
+        output=gradient*self.mask
+        self.mask=None
+        return output
+    
+
 
         
