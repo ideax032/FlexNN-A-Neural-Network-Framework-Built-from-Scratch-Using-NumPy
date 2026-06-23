@@ -14,6 +14,11 @@ The project focuses on understanding the internal mechanics of deep learning by 
 * Forward propagation
 * Backward propagation
 * NumPy-based implementation
+* Mini-batch training
+* Dropout
+* Model Saving and Loading
+* Evaluation metrics
+  
 
 ## Project Goal
 
@@ -26,11 +31,7 @@ The goal of ScratchNN is to develop a deeper understanding of:
 * Weight initialization
 * Modular framework design
 * Deep learning fundamentals
-* Mini-batch training
-* Dropout
-* Model Saving and Loading
-* Evaluation metrics
-  
+
 Rather than treating neural networks as black boxes, ScratchNN implements the underlying algorithms directly in NumPy.
 
 ## Planned Features
