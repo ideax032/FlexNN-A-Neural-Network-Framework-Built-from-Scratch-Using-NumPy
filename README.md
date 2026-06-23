@@ -26,20 +26,21 @@ The goal of ScratchNN is to develop a deeper understanding of:
 * Weight initialization
 * Modular framework design
 * Deep learning fundamentals
-
+* Mini-batch training
+* Dropout
+* Model Saving and Loading
+* Evaluation metrics
+  
 Rather than treating neural networks as black boxes, ScratchNN implements the underlying algorithms directly in NumPy.
 
 ## Planned Features
 
-* Mini-batch training
-* Dropout
 * Batch Normalization
 * Learning Rate Scheduling
-* Model Saving and Loading
 * CNN layers
 * Additional activation functions
 * Additional loss functions
-* Evaluation metrics
+
 * GPU support exploration
 
 ## Technologies Used
